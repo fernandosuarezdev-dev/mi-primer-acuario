@@ -19,23 +19,24 @@ jobs:
     env:
       VERSION_CODE: ${{ github.run_number }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm
 
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: 21
           cache: gradle
 
-      - uses: android-actions/setup-android@v3
+      - uses: android-actions/setup-android@v4
 
       - name: Preparar la app web
         run: |
+          exec > >(tee -a "$RUNNER_TEMP/registro.txt") 2>&1
           npm ci
           npm run build
           npx cap sync android
@@ -63,6 +64,7 @@ jobs:
       - name: Compilar
         working-directory: android
         run: |
+          exec > >(tee -a "$RUNNER_TEMP/registro.txt") 2>&1
           chmod +x gradlew
           if [ "$SIGNED" = "1" ]; then
             ./gradlew --no-daemon assembleDebug assembleRelease bundleRelease
@@ -83,7 +85,7 @@ jobs:
           ls -la salida
           echo "NOMBRE=${N}" >> "$GITHUB_ENV"
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: ${{ env.NOMBRE }}
           path: salida/*
@@ -104,3 +106,12 @@ jobs:
             NOTAS="Compilación ${VERSION_CODE} (solo APK de prueba: faltan los secretos de firma)."
           fi
           gh release create "$TAG" salida/* --title "Mi Primer Acuario · compilación ${VERSION_CODE}" --notes "$NOTAS" --target "$GITHUB_SHA"
+
+      - name: Publicar el registro si algo falló
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          touch "$RUNNER_TEMP/registro.txt"
+          tail -c 900000 "$RUNNER_TEMP/registro.txt" > registro-fallo.txt
+          gh release create "fallo-${VERSION_CODE}" registro-fallo.txt --prerelease --title "Registro de la compilación ${VERSION_CODE} (falló)" --notes "Registro para revisar el error." --target "$GITHUB_SHA"
