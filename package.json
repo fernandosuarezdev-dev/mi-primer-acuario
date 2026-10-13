@@ -1,0 +1,32 @@
+{
+  "name": "mi-primer-acuario",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Mi Primer Acuario: simulador de acuario en tiempo real para aprender a cuidar peces.",
+  "scripts": {
+    "build": "node scripts/build-web.mjs",
+    "sync": "npm run build && npx cap sync",
+    "icons": "python3 design/render.py && npx capacitor-assets generate --android --ios --iconBackgroundColor '#03111A' --iconBackgroundColorDark '#03111A' --splashBackgroundColor '#03111A' --splashBackgroundColorDark '#03111A' && python3 design/android_icons.py"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.5.3",
+    "@capacitor/app": "^8.1.2",
+    "@capacitor/browser": "^8.0.5",
+    "@capacitor/core": "^8.5.3",
+    "@capacitor/filesystem": "^8.1.4",
+    "@capacitor/haptics": "^8.0.2",
+    "@capacitor/ios": "^8.5.3",
+    "@capacitor/local-notifications": "^8.3.1",
+    "@capacitor/preferences": "^8.0.1",
+    "@capacitor/share": "^8.0.3",
+    "@capacitor/splash-screen": "^8.0.2"
+  },
+  "devDependencies": {
+    "@capacitor/assets": "^3.0.5",
+    "@capacitor/cli": "^8.5.3",
+    "@fontsource-variable/bricolage-grotesque": "^5.3.0",
+    "@fontsource/atkinson-hyperlegible": "^5.3.0",
+    "@fontsource/ibm-plex-mono": "^5.3.0",
+    "esbuild": "^0.28.2"
+  }
+}

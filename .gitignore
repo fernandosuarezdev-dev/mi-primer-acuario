@@ -1,0 +1,8 @@
+node_modules/
+www/
+design/out/
+salida/
+*.jks
+*.keystore
+*.p12
+.DS_Store

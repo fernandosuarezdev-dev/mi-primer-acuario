@@ -1,0 +1,33 @@
+{
+  "appId": "com.miprimeracuario.app",
+  "appName": "Mi Primer Acuario",
+  "webDir": "www",
+  "backgroundColor": "#03111A",
+  "android": {
+    "backgroundColor": "#03111A",
+    "allowMixedContent": false,
+    "webContentsDebuggingEnabled": false
+  },
+  "ios": {
+    "backgroundColor": "#03111A",
+    "contentInset": "never"
+  },
+  "plugins": {
+    "SystemBars": {
+      "insetsHandling": "css",
+      "initialViewportFitValueHint": "cover",
+      "style": "DARK"
+    },
+    "SplashScreen": {
+      "launchAutoHide": true,
+      "launchShowDuration": 3000,
+      "backgroundColor": "#03111A",
+      "showSpinner": false,
+      "androidScaleType": "CENTER_CROP"
+    },
+    "LocalNotifications": {
+      "smallIcon": "ic_stat_fish",
+      "iconColor": "#40E0E8"
+    }
+  }
+}

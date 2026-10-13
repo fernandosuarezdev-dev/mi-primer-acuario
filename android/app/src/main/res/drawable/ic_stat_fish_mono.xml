@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Ícono temático (Android 13+): el mismo pez centrado en la zona segura de 108 dp. -->
+<inset xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/ic_stat_fish"
+    android:inset="26dp" />
